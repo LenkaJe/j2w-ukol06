@@ -1,11 +1,9 @@
 package cz.czechitas.java2webapps.ukol6.controller;
 
+import cz.czechitas.java2webapps.ukol6.service.CitatyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
-import java.util.Random;
 
 /**
  *
@@ -13,6 +11,13 @@ import java.util.Random;
 @Controller
 public class CitatyController {
 
+  private final CitatyService citatyService;
+
+  public CitatyController(CitatyService citatyService) {
+    this.citatyService = citatyService;
+  }
+
+  /*
   private final List<String> seznamCitatu;
   private final Random random;
 
@@ -28,13 +33,13 @@ public class CitatyController {
             "Real programmers count from 0."
     );
     this.random = new Random();
-  }
+  }*/
 
   @GetMapping("/")
   public ModelAndView nahodnyCitat() {
-    int index = random.nextInt(seznamCitatu.size());
+    //int index = random.nextInt(seznamCitatu.size());
     ModelAndView modelAndView = new ModelAndView("citat");
-    modelAndView.addObject("citat", seznamCitatu.get(index));
+    modelAndView.addObject("citat", citatyService.nahodnyCitat());
     return modelAndView;
   }
 }
